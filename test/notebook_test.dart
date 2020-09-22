@@ -10,17 +10,19 @@ void main() {
   });
 
   group("contents", () {
-    final nb = Notebook();
-    final nb2 = Notebook();
-    final n = Note("Lorem Ipsum");
+    test("length behaves correctly", () {
+      final nb = Notebook();
+      final nb2 = Notebook();
+      final n = Note("Lorem Ipsum");
 
-    expect(nb.length, 0);
+      expect(nb.length, 0);
 
-    nb2.add(n);
+      nb2.add(n);
 
-    expect(nb2.length, 1);
+      expect(nb2.length, 1);
 
-    nb2.remove(n);
-    expect(nb2.length, 0);
+      nb2.remove(n);
+      expect(nb2.length, 0);
+    });
   });
 }
