@@ -11,6 +11,10 @@ class Notebook {
     return _notes.remove(note);
   }
 
+  Note removeAt(int index) {
+    return _notes.removeAt(index);
+  }
+
   void add(Note note) {
     _notes.insert(0, note);
   }
