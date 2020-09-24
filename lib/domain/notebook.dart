@@ -7,6 +7,19 @@ class Notebook {
 
   int get length => _notes.length;
 
+  // Constructores
+  Notebook();
+
+  Notebook.testDataBuilder() {
+    _notes.addAll(List.generate(100, (index) => Note("Item $index")));
+  }
+
+  // Accesores
+  Note operator [](int index) {
+    return _notes[index];
+  }
+
+  // Mutadores
   bool remove(Note note) {
     return _notes.remove(note);
   }
