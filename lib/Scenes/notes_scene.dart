@@ -39,7 +39,7 @@ class _NotesListViewState extends State<NotesListView> {
   }
 }
 
-class NoteSliver extends StatelessWidget {
+class NoteSliver extends StatefulWidget {
   final Notebook notebook;
   final int index;
 
@@ -48,14 +48,36 @@ class NoteSliver extends StatelessWidget {
         this.index = index;
 
   @override
+  _NoteSliverState createState() => _NoteSliverState();
+}
+
+class _NoteSliverState extends State<NoteSliver> {
+  @override
   Widget build(BuildContext context) {
     DateFormat fmt = DateFormat("yyyy-mm-dd");
 
-    return Card(
-      child: ListTile(
-        leading: const Icon(Icons.toc),
-        title: Text(notebook[index].body),
-        subtitle: Text(fmt.format(notebook[index].modificationDate)),
+    return Dismissible(
+      key: UniqueKey(),
+      onDismissed: (direction) {
+        widget.notebook.removeAt(widget.index);
+
+        Scaffold.of(context).showSnackBar(
+          const SnackBar(
+            content: Text("Note has been deleted!"),
+          ),
+        );
+        setState(() {});
+      },
+      background: Container(
+        color: Colors.red,
+      ),
+      child: Card(
+        child: ListTile(
+          leading: const Icon(Icons.toc),
+          title: Text(widget.notebook[widget.index].body),
+          subtitle:
+              Text(fmt.format(widget.notebook[widget.index].modificationDate)),
+        ),
       ),
     );
   }
