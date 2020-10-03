@@ -54,7 +54,7 @@ class NoteSliver extends StatefulWidget {
 class _NoteSliverState extends State<NoteSliver> {
   @override
   Widget build(BuildContext context) {
-    DateFormat fmt = DateFormat("yyyy-mm-dd");
+    DateFormat fmt = DateFormat("yyyy-MM-dd");
 
     return Dismissible(
       key: UniqueKey(),
