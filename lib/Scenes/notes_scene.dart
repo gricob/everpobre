@@ -1,8 +1,10 @@
 import 'package:everpobre/domain/notebook.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:everpobre/domain/note.dart';
 
 class NotesListView extends StatefulWidget {
+  static const ROUTE = '';
   final Notebook _model;
 
   const NotesListView(Notebook model) : _model = model;
@@ -30,11 +32,22 @@ class _NotesListViewState extends State<NotesListView> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: widget._model.length,
-      itemBuilder: (context, index) {
-        return NoteSliver(widget._model, index);
-      },
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget._model.title),
+      ),
+      body: ListView.builder(
+        itemCount: widget._model.length,
+        itemBuilder: (context, index) {
+          return NoteSliver(widget._model, index);
+        },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          widget._model.add(Note("New note"));
+        },
+        child: const Icon(Icons.add),
+      ),
     );
   }
 }

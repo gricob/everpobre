@@ -1,6 +1,9 @@
 
+import 'package:everpobre/Scenes/notes_scene.dart';
 import 'package:everpobre/domain/notebooks.dart';
 import 'package:flutter/material.dart';
+import 'package:everpobre/text_resources.dart';
+import 'package:everpobre/domain/notebook.dart';
 
 class NotebookList extends StatefulWidget {
   final Notebooks _model;
@@ -30,11 +33,22 @@ class NotebookListState extends State<NotebookList> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: widget._model.length,
-      itemBuilder: (context, index) {
-        return NotebookListItem(widget._model, index);
-      }
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(TextResources.appName),
+      ),
+      body: ListView.builder(
+          itemCount: widget._model.length,
+          itemBuilder: (context, index) {
+            return NotebookListItem(widget._model, index);
+          }
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          widget._model.add(Notebook("New notebook"));
+        },
+        child: const Icon(Icons.add),
+      ),
     );
   }
 }
@@ -67,6 +81,12 @@ class NotebookListItemState extends State<NotebookListItem> {
       ),
       child: Card(
         child: ListTile(
+            onTap: () {
+              Navigator.push<MaterialPageRoute>(context, MaterialPageRoute(
+                builder: (context) => NotesListView(widget.notebooks[widget.index])
+              )
+            );
+          },
           leading: const Icon(Icons.library_books),
           title: Text(widget.notebooks[widget.index].title)
         ),
