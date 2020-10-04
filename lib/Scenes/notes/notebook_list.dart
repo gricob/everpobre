@@ -11,10 +11,10 @@ class NotebookList extends StatefulWidget {
   const NotebookList(Notebooks model): _model = model;
 
   @override
-  State<StatefulWidget> createState() => NotebookListState();
+  State<StatefulWidget> createState() => _NotebookListState();
 }
 
-class NotebookListState extends State<NotebookList> {
+class _NotebookListState extends State<NotebookList> {
   void modelDidChange() {
     setState(() {});
   }

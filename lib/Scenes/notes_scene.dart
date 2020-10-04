@@ -2,12 +2,12 @@ import 'package:everpobre/domain/notebook.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:everpobre/domain/note.dart';
+import 'package:everpobre/Scenes/notes/note_detail.dart';
 
 class NotesListView extends StatefulWidget {
-  static const ROUTE = '';
   final Notebook _model;
 
-  const NotesListView(Notebook model) : _model = model;
+  const NotesListView(this._model);
 
   @override
   _NotesListViewState createState() => _NotesListViewState();
@@ -65,6 +65,10 @@ class NoteSliver extends StatefulWidget {
 }
 
 class _NoteSliverState extends State<NoteSliver> {
+  void modelDidChange() {
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     DateFormat fmt = DateFormat("yyyy-MM-dd");
@@ -90,6 +94,21 @@ class _NoteSliverState extends State<NoteSliver> {
           title: Text(widget.notebook[widget.index].body),
           subtitle:
               Text(fmt.format(widget.notebook[widget.index].modificationDate)),
+          onTap: () {
+            Navigator.push<MaterialPageRoute>(
+                context,
+                MaterialPageRoute(
+                  builder: (context){
+                    return NoteDetail(
+                        note: widget.notebook[widget.index],
+                        onNoteChanged: () {
+                            this.setState(() {});
+                        },
+                    );
+                  }
+              )
+            );
+          },
         ),
       ),
     );
